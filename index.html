@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Positions Scout</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>🎓 Academic Position Scout</h1>
+                <p>Fully Funded Opportunities in Nuclear Physics, ML & Astrophysics</p>
+                <div id="last-updated" class="last-updated">Loading status...</div>
+            </div>
+        </header>
+
+        <main>
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="search" placeholder="Search positions, countries, or notes...">
+                </div>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="phd">PhD</button>
+                    <button class="filter-btn" data-filter="master">Master</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="positions-table">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Institution</th>
+                            <th>Location</th>
+                            <th>Deadline</th>
+                            <th>Notes</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="positions-body">
+                        <!-- Rows will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="loading" class="loading">
+                Fetching latest positions...
+            </div>
+            
+            <div id="no-results" class="no-results hidden">
+                No matching positions found.
+            </div>
+        </main>
+
+        <footer>
+            <p>Automated Scout for Mudassar Ahmed</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
