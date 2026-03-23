@@ -15,7 +15,10 @@
             <div class="header-content">
                 <h1>🎓 Academic Position Scout</h1>
                 <p>Fully Funded Opportunities in Nuclear Physics, ML & Astrophysics</p>
-                <div id="last-updated" class="last-updated">Loading status...</div>
+                <div class="header-stats">
+                    <div id="last-updated" class="last-updated">Loading status...</div>
+                    <div id="position-count" class="position-count">0 positions found</div>
+                </div>
             </div>
         </header>
 
@@ -29,6 +32,24 @@
                     <button class="filter-btn" data-filter="phd">PhD</button>
                     <button class="filter-btn" data-filter="master">Master</button>
                 </div>
+                <div class="source-filter">
+                    <select id="source-filter">
+                        <option value="all">All Sources</option>
+                        <option value="inspirehep">InspireHEP</option>
+                        <option value="euraxess">EURAXESS</option>
+                        <option value="academicpositions">AcademicPositions</option>
+                        <option value="findaphd">FindAPhD</option>
+                        <option value="scholarshippositions">ScholarshipPositions</option>
+                    </select>
+                </div>
+                <div class="sort-controls">
+                    <select id="sort-select">
+                        <option value="date_found_desc">Newest First</option>
+                        <option value="date_found_asc">Oldest First</option>
+                        <option value="deadline_asc">Deadline (Soon)</option>
+                        <option value="title_asc">Title A-Z</option>
+                    </select>
+                </div>
             </div>
 
             <div class="table-container">
@@ -39,6 +60,8 @@
                             <th>Institution</th>
                             <th>Location</th>
                             <th>Deadline</th>
+                            <th>Source</th>
+                            <th>Found</th>
                             <th>Notes</th>
                             <th>Action</th>
                         </tr>
@@ -59,8 +82,24 @@
         </main>
 
         <footer>
-            <p>Automated Scout for Mudassar Ahmed</p>
+            <p>Automated Scout for Mudassar Ahmed | Last run: <span id="footer-updated">-</span></p>
         </footer>
+    </div>
+
+    <!-- Position Detail Modal -->
+    <div id="position-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Position Details</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-summary"></div>
+                <div class="modal-actions">
+                    <a id="modal-apply-link" href="#" target="_blank" class="btn-primary">Apply Now</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
