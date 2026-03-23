@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-03-23 00:50 UTC",
-  "active_count": 35,
+  "last_updated": "2026-03-23 01:09 UTC",
+  "active_count": 47,
   "archived_count": 30,
   "active_positions": [
     {
@@ -457,6 +457,199 @@
       "summary": [],
       "id": "dba8aca1257f",
       "date_found": "2026-03-23"
+    },
+    {
+      "id": "bcfd62af699b",
+      "type": "phd",
+      "title": "Hide Filters",
+      "institution": "Unknown",
+      "country": "Europe",
+      "deadline": "2026-04-13T21:59:59+",
+      "link": "https://euraxess.ec.europa.eu#",
+      "notes": "EURAXESS; nuclear physics phd",
+      "source": "euraxess",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: nuclear physics phd",
+        "Institution: Unknown"
+      ]
+    },
+    {
+      "id": "d7b21b332cbf",
+      "type": "phd",
+      "title": "Wageningen University and Research Centre via AcademicTransfer",
+      "institution": "Unknown",
+      "country": "Europe",
+      "deadline": "2026-04-13T21:59:59+",
+      "link": "https://euraxess.ec.europa.eu/partnering/organisations/profile/wageningen-university-and-research-centre-academictransfer",
+      "notes": "EURAXESS; nuclear physics phd",
+      "source": "euraxess",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: nuclear physics phd",
+        "Institution: Unknown"
+      ]
+    },
+    {
+      "id": "d9a586621e73",
+      "type": "phd",
+      "title": "AcademicTransfer",
+      "institution": "Unknown",
+      "country": "Europe",
+      "deadline": "2026-05-15T21:59:59+",
+      "link": "https://euraxess.ec.europa.eu/partnering/organisations/profile/academictransfer",
+      "notes": "EURAXESS; nuclear physics phd",
+      "source": "euraxess",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: nuclear physics phd",
+        "Institution: Unknown"
+      ]
+    },
+    {
+      "id": "ff0d50900b7e",
+      "type": "phd",
+      "title": "Maastricht University via AcademicTransfer",
+      "institution": "Unknown",
+      "country": "Europe",
+      "deadline": "2026-04-12T21:59:59+",
+      "link": "https://euraxess.ec.europa.eu/partnering/organisations/profile/maastricht-university-academictransfer",
+      "notes": "EURAXESS; nuclear physics phd",
+      "source": "euraxess",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: nuclear physics phd",
+        "Institution: Unknown"
+      ]
+    },
+    {
+      "id": "9a09e3013378",
+      "type": "phd",
+      "title": "Umea University",
+      "institution": "Unknown",
+      "country": "Europe",
+      "deadline": "2026-04-10T21:59:59+",
+      "link": "https://euraxess.ec.europa.eu/partnering/organisations/profile/umea-university",
+      "notes": "EURAXESS; nuclear physics phd",
+      "source": "euraxess",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: nuclear physics phd",
+        "Institution: Unknown"
+      ]
+    },
+    {
+      "id": "a1de737e679a",
+      "type": "phd",
+      "title": "To the questionnaire",
+      "institution": "German University",
+      "country": "Germany",
+      "deadline": "",
+      "link": "https://ows.io/tj/rj82pr82",
+      "notes": "DAAD; Germany",
+      "source": "daad",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Institution: German University",
+        "Location: Germany",
+        "Source: DAAD database"
+      ]
+    },
+    {
+      "id": "3457125d004e",
+      "type": "phd",
+      "title": "Science@Leuven Scholarships for International Students",
+      "institution": "See listing",
+      "country": "Worldwide",
+      "deadline": "",
+      "link": "https://www.scholars4dev.com/3222/science-scholarships-for-international-students-at-ku-leuven/",
+      "notes": "Scholars4Dev; physics",
+      "source": "scholars4dev",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: physics",
+        "See link for details"
+      ]
+    },
+    {
+      "id": "c7685ef1af52",
+      "type": "phd",
+      "title": "Ampère Excellence Scholarships for International Students",
+      "institution": "See listing",
+      "country": "Worldwide",
+      "deadline": "",
+      "link": "https://www.scholars4dev.com/10349/ampere-excellence-scholarships-for-international-students/",
+      "notes": "Scholars4Dev; physics",
+      "source": "scholars4dev",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: physics",
+        "See link for details"
+      ]
+    },
+    {
+      "id": "c112b88cf7e3",
+      "type": "phd",
+      "title": "Lund University Global Scholarship Programme",
+      "institution": "See listing",
+      "country": "Worldwide",
+      "deadline": "",
+      "link": "https://www.scholars4dev.com/6908/lund-university-scholarships-sweden/",
+      "notes": "Scholars4Dev; physics",
+      "source": "scholars4dev",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: physics",
+        "See link for details"
+      ]
+    },
+    {
+      "id": "027e15d63ce2",
+      "type": "phd",
+      "title": "University of Padua International Scholarships",
+      "institution": "See listing",
+      "country": "Worldwide",
+      "deadline": "",
+      "link": "https://www.scholars4dev.com/24700/university-of-padua-international-scholarships/",
+      "notes": "Scholars4Dev; astrophysics",
+      "source": "scholars4dev",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: astrophysics",
+        "See link for details"
+      ]
+    },
+    {
+      "id": "ec80440a171d",
+      "type": "phd",
+      "title": "Australia Awards Scholarships",
+      "institution": "See listing",
+      "country": "Worldwide",
+      "deadline": "",
+      "link": "https://www.scholars4dev.com/3253/australia-awards-scholarships/",
+      "notes": "Scholars4Dev; nuclear",
+      "source": "scholars4dev",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: nuclear",
+        "See link for details"
+      ]
+    },
+    {
+      "id": "730faee4f284",
+      "type": "phd",
+      "title": "LANL-CBNU Engineering Institute Graduate and PostDoc Scholarships in Korea",
+      "institution": "See listing",
+      "country": "Worldwide",
+      "deadline": "",
+      "link": "https://www.scholars4dev.com/9578/lanl-cbnu-engineering-institute-graduate-and-postdoc-scholarships-in-korea/",
+      "notes": "Scholars4Dev; nuclear",
+      "source": "scholars4dev",
+      "date_found": "2026-03-23",
+      "summary": [
+        "Search: nuclear",
+        "See link for details"
+      ]
     }
   ],
   "archived_positions": [
