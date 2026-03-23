@@ -23,6 +23,12 @@
         </header>
 
         <main>
+            <!-- Active / Archive Tabs -->
+            <div class="view-tabs">
+                <button class="tab-btn active" data-view="active" id="tab-active">Active (0)</button>
+                <button class="tab-btn" data-view="archive" id="tab-archive">Archived (0)</button>
+            </div>
+
             <div class="controls">
                 <div class="search-box">
                     <input type="text" id="search" placeholder="Search positions, countries, or notes...">
@@ -61,7 +67,7 @@
                             <th>Location</th>
                             <th>Deadline</th>
                             <th>Source</th>
-                            <th>Found</th>
+                            <th class="date-found-header">Date Found</th>
                             <th>Notes</th>
                             <th>Action</th>
                         </tr>

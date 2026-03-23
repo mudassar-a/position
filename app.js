@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const lastUpdatedDiv = document.getElementById('last-updated');
     const positionCountDiv = document.getElementById('position-count');
     const footerUpdated = document.getElementById('footer-updated');
-    
+    const tabBtns = document.querySelectorAll('.tab-btn');
+
     // Modal elements
     const modal = document.getElementById('position-modal');
     const modalTitle = document.getElementById('modal-title');
@@ -17,7 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalApplyLink = document.getElementById('modal-apply-link');
     const closeModalBtn = document.getElementById('close-modal');
 
-    let allPositions = [];
+    let activePositions = [];
+    let archivedPositions = [];
+    let currentView = 'active'; // 'active' or 'archive'
     let currentFilter = 'all';
     let currentSourceFilter = 'all';
     let currentSort = 'date_found_desc';
@@ -29,14 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            allPositions = data.positions || [];
+            // Support both old and new format
+            if (data.active_positions) {
+                activePositions = data.active_positions || [];
+                archivedPositions = data.archived_positions || [];
+            } else {
+                activePositions = data.positions || [];
+                archivedPositions = [];
+            }
             if (data.last_updated) {
                 const updateText = `Last Scout Run: ${data.last_updated}`;
                 lastUpdatedDiv.textContent = updateText;
-                footerUpdated.textContent = data.last_updated;
+                if (footerUpdated) footerUpdated.textContent = data.last_updated;
             }
+            // Update tab counts
+            updateTabCounts();
             updatePositionCount();
-            renderTable(allPositions);
+            renderTable();
             loadingDiv.classList.add('hidden');
         })
         .catch(err => {
@@ -44,30 +56,38 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingDiv.textContent = "Error loading data. Ensure positions.json exists.";
         });
 
-    // Update position count
-    function updatePositionCount() {
-        const filtered = getFilteredPositions();
-        positionCountDiv.textContent = `${filtered.length} position${filtered.length !== 1 ? 's' : ''} found`;
+    function getActiveData() {
+        return currentView === 'active' ? activePositions : archivedPositions;
     }
 
-    // Get filtered positions based on all current filters
-    function getFilteredPositions() {
-        let filtered = [...allPositions];
+    function updateTabCounts() {
+        const activeTab = document.getElementById('tab-active');
+        const archiveTab = document.getElementById('tab-archive');
+        if (activeTab) activeTab.textContent = `Active (${activePositions.length})`;
+        if (archiveTab) archiveTab.textContent = `Archived (${archivedPositions.length})`;
+    }
 
-        // Filter by type
+    function updatePositionCount() {
+        const filtered = getFilteredPositions();
+        if (positionCountDiv) {
+            positionCountDiv.textContent = `${filtered.length} position${filtered.length !== 1 ? 's' : ''} shown`;
+        }
+    }
+
+    function getFilteredPositions() {
+        let filtered = [...getActiveData()];
+
         if (currentFilter !== 'all') {
             filtered = filtered.filter(p => p.type === currentFilter);
         }
 
-        // Filter by source
         if (currentSourceFilter !== 'all') {
             filtered = filtered.filter(p => p.source === currentSourceFilter);
         }
 
-        // Search filter
         const query = searchInput.value.toLowerCase();
         if (query) {
-            filtered = filtered.filter(p => 
+            filtered = filtered.filter(p =>
                 (p.title || '').toLowerCase().includes(query) ||
                 (p.institution || '').toLowerCase().includes(query) ||
                 (p.country || '').toLowerCase().includes(query) ||
@@ -79,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return filtered;
     }
 
-    // Sort positions
     function sortPositions(positions) {
         return positions.sort((a, b) => {
             switch (currentSort) {
@@ -97,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Check if position is new (within last 3 days)
     function isNewPosition(dateFound) {
         if (!dateFound) return false;
         const found = new Date(dateFound);
@@ -106,21 +124,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return found > threeDaysAgo;
     }
 
-    // Format date for display
     function formatDate(dateStr) {
         if (!dateStr) return '-';
         try {
-            return new Date(dateStr).toLocaleDateString('en-GB', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
+            const d = new Date(dateStr);
+            if (isNaN(d)) return dateStr;
+            return d.toLocaleDateString('en-GB', {
+                year: 'numeric', month: 'short', day: 'numeric'
             });
         } catch {
             return dateStr;
         }
     }
 
-    // Get source display name and color
     function getSourceInfo(source) {
         const sources = {
             'inspirehep': { name: 'InspireHEP', color: '#2563eb' },
@@ -128,24 +144,23 @@ document.addEventListener('DOMContentLoaded', () => {
             'academicpositions': { name: 'AcademicPos', color: '#7c3aed' },
             'findaphd': { name: 'FindAPhD', color: '#dc2626' },
             'scholarshippositions': { name: 'Scholarships', color: '#ea580c' },
-            'nature': { name: 'Nature', color: '#059669' }
+            'nature': { name: 'Nature', color: '#059669' },
+            'daad': { name: 'DAAD', color: '#4338ca' },
+            'phdportal': { name: 'PhD Portal', color: '#be185d' },
+            'scholars4dev': { name: 'Scholars4Dev', color: '#065f46' }
         };
         return sources[source] || { name: source || 'Unknown', color: '#6b7280' };
     }
 
-    // Show position details in modal
     function showPositionDetails(position) {
         modalTitle.textContent = position.title || 'Position Details';
-        
-        // Create summary content
+
         let summaryHTML = '';
-        
+
         if (position.summary && position.summary.length > 0) {
             summaryHTML = `
                 <h4>Position Summary</h4>
-                <ul>
-                    ${position.summary.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
-                </ul>
+                <ul>${position.summary.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
             `;
         } else {
             summaryHTML = `
@@ -158,40 +173,53 @@ document.addEventListener('DOMContentLoaded', () => {
                     <li><strong>Source:</strong> ${getSourceInfo(position.source).name}</li>
                     <li><strong>Date Found:</strong> ${formatDate(position.date_found)}</li>
                     ${position.notes ? `<li><strong>Tags:</strong> ${escapeHtml(position.notes)}</li>` : ''}
+                    ${position.archived_reason ? `<li><strong>Archived:</strong> ${escapeHtml(position.archived_reason)}</li>` : ''}
                 </ul>
             `;
         }
-        
+
         modalSummary.innerHTML = summaryHTML;
         modalApplyLink.href = position.link || '#';
+        modalApplyLink.textContent = currentView === 'archive' ? 'View Listing' : 'Apply Now';
         modal.classList.remove('hidden');
     }
 
-    // Hide modal
     function hideModal() {
         modal.classList.add('hidden');
     }
 
-    // Render Function
-    function renderTable(positions) {
+    function renderTable() {
         const filtered = getFilteredPositions();
         const sorted = sortPositions(filtered);
-        
+
         tableBody.innerHTML = '';
         updatePositionCount();
 
+        // Update table headers for archive view
+        const dateFoundHeader = document.querySelector('.date-found-header');
+        if (dateFoundHeader) {
+            dateFoundHeader.textContent = currentView === 'archive' ? 'Archived' : 'Date Found';
+        }
+
         if (sorted.length === 0) {
             noResultsDiv.classList.remove('hidden');
+            noResultsDiv.innerHTML = currentView === 'archive'
+                ? 'No archived positions found matching filters.'
+                : 'No active positions found matching filters.';
         } else {
             noResultsDiv.classList.add('hidden');
-            
+
             sorted.forEach(p => {
                 const tr = document.createElement('tr');
-                
+                if (currentView === 'archive') tr.classList.add('archived-row');
+
                 const typeClass = p.type === 'phd' ? 'type-phd' : 'type-master';
                 const typeLabel = (p.type || 'phd').toUpperCase();
-                const isNew = isNewPosition(p.date_found);
+                const isNew = currentView === 'active' && isNewPosition(p.date_found);
                 const sourceInfo = getSourceInfo(p.source);
+                const dateDisplay = currentView === 'archive'
+                    ? formatDate(p.archived_date)
+                    : formatDate(p.date_found);
 
                 tr.innerHTML = `
                     <td>
@@ -207,69 +235,81 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${sourceInfo.name}
                         </span>
                     </td>
-                    <td class="date-found">${formatDate(p.date_found)}</td>
+                    <td class="date-found">${dateDisplay}</td>
                     <td>${escapeHtml(p.notes || '-')}</td>
                     <td>
-                        <a href="${p.link || '#'}" target="_blank" class="btn-link">Apply</a>
+                        ${currentView === 'archive'
+                            ? `<span class="archive-reason" title="${escapeHtml(p.archived_reason || '')}">📦 Archived</span>`
+                            : `<a href="${p.link || '#'}" target="_blank" class="btn-link">Apply</a>`
+                        }
                     </td>
                 `;
-                
-                // Add click handler for position title
+
                 const titleElement = tr.querySelector('.position-title');
                 titleElement.addEventListener('click', (e) => {
                     e.preventDefault();
                     showPositionDetails(p);
                 });
-                
+
                 tableBody.appendChild(tr);
             });
         }
     }
 
-    // Event Listeners
-    searchInput.addEventListener('input', () => {
-        renderTable(allPositions);
-    });
-
-    filterBtns.forEach(btn => {
+    // Tab switching
+    tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Update UI
-            filterBtns.forEach(b => b.classList.remove('active'));
+            tabBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            // Update State
-            currentFilter = btn.dataset.filter;
-            renderTable(allPositions);
+            currentView = btn.dataset.view;
+            renderTable();
         });
     });
 
-    sourceFilter.addEventListener('change', (e) => {
-        currentSourceFilter = e.target.value;
-        renderTable(allPositions);
+    // Filter/type buttons
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.dataset.filter;
+            renderTable();
+        });
     });
 
-    sortSelect.addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        renderTable(allPositions);
+    // Source filter
+    if (sourceFilter) {
+        sourceFilter.addEventListener('change', (e) => {
+            currentSourceFilter = e.target.value;
+            renderTable();
+        });
+    }
+
+    // Sort
+    if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            renderTable();
+        });
+    }
+
+    // Search
+    searchInput.addEventListener('input', () => {
+        renderTable();
     });
 
-    // Modal event listeners
-    closeModalBtn.addEventListener('click', hideModal);
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            hideModal();
-        }
-    });
-
-    // Keyboard navigation for modal
+    // Modal
+    if (closeModalBtn) closeModalBtn.addEventListener('click', hideModal);
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) hideModal();
+        });
+    }
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
             hideModal();
         }
     });
 
-    // Utility function to escape HTML
     function escapeHtml(text) {
         if (!text) return '';
         const div = document.createElement('div');
