@@ -41,9 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 archivedPositions = [];
             }
             if (data.last_updated) {
-                const updateText = `Last Scout Run: ${data.last_updated}`;
+                // Format last_updated in Pakistan Time (PKT)
+                const updateDate = new Date(data.last_updated.replace(' UTC', 'Z'));
+                const pktTime = updateDate.toLocaleString('en-GB', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit',
+                    timeZone: 'Asia/Karachi',
+                    hour12: false
+                });
+                const updateText = `Last Scout Run: ${pktTime} PKT`;
                 lastUpdatedDiv.textContent = updateText;
-                if (footerUpdated) footerUpdated.textContent = data.last_updated;
+                if (footerUpdated) footerUpdated.textContent = pktTime;
             }
             // Update tab counts
             updateTabCounts();
@@ -127,10 +135,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatDate(dateStr) {
         if (!dateStr) return '-';
         try {
-            const d = new Date(dateStr);
+            // Parse date string - it could be full datetime (from last_updated) or just date
+            const d = new Date(dateStr.replace(' UTC', 'Z'));
+
             if (isNaN(d)) return dateStr;
+
+            // Convert to Pakistan Standard Time (UTC+5)
+            // Options: timeZone: 'Asia/Karachi' gives proper PKT handling
             return d.toLocaleDateString('en-GB', {
-                year: 'numeric', month: 'short', day: 'numeric'
+                year: 'numeric', month: 'short', day: 'numeric',
+                timeZone: 'Asia/Karachi'
             });
         } catch {
             return dateStr;
