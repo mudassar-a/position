@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-03-23 01:09 UTC",
-  "active_count": 47,
+  "last_updated": "2026-03-24 10:22 UTC",
+  "active_count": 48,
   "archived_count": 30,
   "active_positions": [
     {
@@ -650,6 +650,19 @@
         "Search: nuclear",
         "See link for details"
       ]
+    },
+    {
+      "type": "phd",
+      "title": "PhD Fellowship in Particle Astrophysics and Multi-messenger Astrophysics",
+      "institution": "Bohr Inst.",
+      "country": "Europe",
+      "deadline": "2026-05-01",
+      "link": "https://academicjobsonline.org/ajo/jobs/31849",
+      "notes": "InspireHEP; Physics",
+      "source": "inspirehep",
+      "summary": [],
+      "id": "6851ad0f0cee",
+      "date_found": "2026-03-24"
     }
   ],
   "archived_positions": [
