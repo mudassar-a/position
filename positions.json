@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-03-24 10:22 UTC",
-  "active_count": 48,
+  "last_updated": "2026-03-25 06:01 UTC",
+  "active_count": 49,
   "archived_count": 30,
   "active_positions": [
     {
@@ -663,6 +663,19 @@
       "summary": [],
       "id": "6851ad0f0cee",
       "date_found": "2026-03-24"
+    },
+    {
+      "type": "phd",
+      "title": "Postdoctoral researcher:  ATLAS Higgs Studies + FCC ALLEGRO Detector R&D",
+      "institution": "Annecy, LAPP",
+      "country": "Europe",
+      "deadline": "2026-05-15",
+      "link": "https://inspirehep.net/jobs/3133186",
+      "notes": "InspireHEP; Physics",
+      "source": "inspirehep",
+      "summary": [],
+      "id": "611011fbefdc",
+      "date_found": "2026-03-25"
     }
   ],
   "archived_positions": [
