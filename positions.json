@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-03-25 06:01 UTC",
-  "active_count": 49,
+  "last_updated": "2026-03-27 06:01 UTC",
+  "active_count": 50,
   "archived_count": 30,
   "active_positions": [
     {
@@ -676,6 +676,19 @@
       "summary": [],
       "id": "611011fbefdc",
       "date_found": "2026-03-25"
+    },
+    {
+      "type": "phd",
+      "title": "PhD Position in High-Energy Physics Phenomenology",
+      "institution": "Valencia U., IFIC",
+      "country": "Europe",
+      "deadline": "2026-05-04",
+      "link": "https://inspirehep.net/jobs/3134386",
+      "notes": "InspireHEP; Physics",
+      "source": "inspirehep",
+      "summary": [],
+      "id": "1ae0aea26f96",
+      "date_found": "2026-03-27"
     }
   ],
   "archived_positions": [
